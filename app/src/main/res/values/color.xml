@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimaryDark">#f0644f</color>-->
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#A01420</color>
+    <color name="news_date_background">#6D6D6D</color>
+    <color name="news_background">#D6D6D6</color>
+    <color name="approove_background_color">#00E676</color>
+    <color name="decline_background_color">#C62828</color>
+    <color name="pink_color_background">#E91E63</color>
+    <color name="test_color">#616161</color>
+    <color name="grey_black_color">#424242</color>
+
+    <color name="grey">#383838</color>
+    <color name="bg_tab">#eaeaea</color>
+
+    <!-- Survey list -->
+    <color name="survey_bg">#f3f3f3</color>
+    <color name="survey_location_bg">#455372</color>
+    <color name="survey_tag_bg">#616a7f</color>
+    <color name="survey_grab_btn">#42d17f</color>
+
+    <!-- Score -->
+    <color name="colorCheckBox">#bababa</color>
+    <color name="colorCheckBoxActive">#b9232e</color>
+
+    <!-- Student map -->
+    <color name="student_map_radius">#33455272</color>
+</resources>

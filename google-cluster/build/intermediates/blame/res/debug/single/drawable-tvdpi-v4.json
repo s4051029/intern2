@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/boss/Documents/Internship-master/D:\\S-Planet\\MirrorChannel\\Boss\\Internship V2\\Internship-master\\google-cluster\\build\\intermediates\\res\\merged\\debug\\drawable-tvdpi-v4\\common_full_open_on_phone.png",
+        "source": "/home/boss/Documents/Internship-master/D:\\S-Planet\\MirrorChannel\\Boss\\Internship V2\\Internship-master\\google-cluster\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\7.8.0\\res\\drawable-tvdpi\\common_full_open_on_phone.png"
+    },
+    {
+        "merged": "/home/boss/Documents/Internship-master/google-cluster/build/intermediates/res/merged/debug/drawable-tvdpi-v4/common_full_open_on_phone.png",
+        "source": "/home/boss/Documents/Internship-master/google-cluster/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.8.0/res/drawable-tvdpi/common_full_open_on_phone.png"
+    },
+    {
+        "merged": "/home/boss/Documents/Internship-master/D:\\S-Planet\\MirrorChannel\\Boss\\Internship\\library\\build\\intermediates\\res\\merged\\debug\\drawable-tvdpi-v4\\common_full_open_on_phone.png",
+        "source": "/home/boss/Documents/Internship-master/D:\\S-Planet\\MirrorChannel\\Boss\\Internship\\library\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\7.8.0\\res\\drawable-tvdpi\\common_full_open_on_phone.png"
+    }
+]

@@ -1,0 +1,174 @@
+<RelativeLayout
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/news_background"
+              tools:context="com.mirrorchannelth.internship.fragment.TaskFragment">
+    <!--3D3D3D-->
+    <include layout="@layout/home_toolbar"
+        android:id="@+id/toolbarLayout">
+
+
+    </include>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/progressbar"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarLayout"
+        android:id="@+id/scrollView">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mainContent"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:hint="หัวข้อ"
+            android:layout_margin="0dp"
+            android:textSize="14sp"
+            android:id="@+id/activityTitleEditText"
+            style="@style/EditTextCustomeStyle"
+            />
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="5dp"
+                      android:gravity="center_vertical"
+                      style="@style/EditTextCustomeStyle"
+        >
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="วันที่"
+                      android:textSize="14sp"
+
+            />
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="07/04/2559"
+                      android:background="@drawable/date_textview_background"
+                      android:layout_marginLeft="20dp"
+                      android:padding="5dp"
+                      android:id="@+id/activityDateTextview"
+                      android:freezesText="true"
+                      android:textColor="@android:color/white"
+            />
+
+        </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:hint="รายละเอียด"
+        android:textSize="14sp"
+        android:gravity="top|left"
+        android:layout_margin="0dp"
+        android:id="@+id/activityDetailEditText"
+        style="@style/EditTextCustomeStyle"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pink_circle_shape"
+                android:id="@+id/cameraLayout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_photo_camera_white_24dp"
+                    android:layout_gravity="center"
+
+                    />
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pink_circle_shape"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/imageLayout"
+
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_image_white_24dp"
+                    android:layout_gravity="center"
+
+                    />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pink_circle_shape"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/videoLayout"
+
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_videocam_white_24dp"
+                    android:layout_gravity="center"
+                    />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/galleryRecyclerView"
+            android:layout_marginTop="10dp"
+        >
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="บันทึก"
+            android:id="@+id/saveButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_corner_btn"
+        />
+
+    </LinearLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

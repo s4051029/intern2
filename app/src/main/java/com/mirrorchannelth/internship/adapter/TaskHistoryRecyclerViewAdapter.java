@@ -22,6 +22,7 @@ import com.mirrorchannelth.internship.view.DateView;
 import org.w3c.dom.Text;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by boss on 4/19/16.
@@ -30,6 +31,7 @@ public class TaskHistoryRecyclerViewAdapter extends RecyclerView.Adapter<TaskHis
 
     private Context context;
     private TaskBean taskBean;
+    private List<TaskItem> taskItemList;
     private TaskApproveListener taskApproveListener;
 
     public TaskHistoryRecyclerViewAdapter() {
@@ -42,15 +44,12 @@ public class TaskHistoryRecyclerViewAdapter extends RecyclerView.Adapter<TaskHis
 
     public void setTaskBean(TaskBean taskBean) {
         this.taskBean = taskBean;
+        taskItemList = taskBean.getTaskList();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_task_history, parent, false);
-
-        // set the view's size, margins, paddings and layout parameters
-
-
         ViewHolder vh = new ViewHolder(view, context);
         return vh;
     }

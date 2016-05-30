@@ -3,7 +3,6 @@ package com.mirrorchannelth.internship.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mirrorchannelth.internship.model.TaskItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +12,9 @@ import java.util.List;
 
 public class TaskBean implements Parcelable {
     private List<TaskItem> taskList = new ArrayList<TaskItem>();
+    private List<TaskItem> taskApproveList ;
+    private List<TaskItem> taskDenyList ;
+
     private int itemTotal;
     private String totalHours;
     private String taskUserId;
@@ -81,12 +83,43 @@ public class TaskBean implements Parcelable {
         return total;
     }
 
+    public TaskItem getTask(String Id){
+        for (int i = 0 ;i< taskList.size(); i++){
+            TaskItem taskItem = taskList.get(i);
+            if(Id.equalsIgnoreCase(taskItem.getTaskId())){
+                return taskItem;
+            }
+        }
+        return null;
+    }
+
+    public void removeTask(String taskId) {
+        for (int i = 0 ;i< taskList.size(); i++){
+            TaskItem taskItem = taskList.get(i);
+            if(taskId.equalsIgnoreCase(taskItem.getTaskId())){
+                taskList.remove(i);
+            }
+        }
+    }
+
     protected TaskBean(Parcel in) {
         if (in.readByte() == 0x01) {
             taskList = new ArrayList<TaskItem>();
             in.readList(taskList, TaskItem.class.getClassLoader());
         } else {
             taskList = null;
+        }
+        if (in.readByte() == 0x01) {
+            taskApproveList = new ArrayList<TaskItem>();
+            in.readList(taskApproveList, TaskItem.class.getClassLoader());
+        } else {
+            taskApproveList = null;
+        }
+        if (in.readByte() == 0x01) {
+            taskDenyList = new ArrayList<TaskItem>();
+            in.readList(taskDenyList, TaskItem.class.getClassLoader());
+        } else {
+            taskDenyList = null;
         }
         itemTotal = in.readInt();
         totalHours = in.readString();
@@ -106,13 +139,25 @@ public class TaskBean implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeList(taskList);
         }
+        if (taskApproveList == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(taskApproveList);
+        }
+        if (taskDenyList == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(taskDenyList);
+        }
         dest.writeInt(itemTotal);
         dest.writeString(totalHours);
         dest.writeString(taskUserId);
     }
 
     @SuppressWarnings("unused")
-    public static final Creator<TaskBean> CREATOR = new Creator<TaskBean>() {
+    public static final Parcelable.Creator<TaskBean> CREATOR = new Parcelable.Creator<TaskBean>() {
         @Override
         public TaskBean createFromParcel(Parcel in) {
             return new TaskBean(in);
@@ -123,22 +168,28 @@ public class TaskBean implements Parcelable {
             return new TaskBean[size];
         }
     };
-    public TaskItem getTask(String Id){
-        for (int i = 0 ;i< taskList.size(); i++){
-            TaskItem taskItem = taskList.get(i);
-            if(Id.equalsIgnoreCase(taskItem.getTaskId())){
-                return taskItem;
-            }
-        }
-        return null;
+
+    public List<TaskItem> getTaskList() {
+        return taskList;
     }
 
-    public void removeTask(String taskId) {
-        for (int i = 0 ;i< taskList.size(); i++){
-            TaskItem taskItem = taskList.get(i);
-            if(taskId.equalsIgnoreCase(taskItem.getTaskId())){
-                taskList.remove(i);
-            }
-        }
+    public void setTaskList(List<TaskItem> taskList) {
+        this.taskList = taskList;
+    }
+
+    public List<TaskItem> getTaskApproveList() {
+        return taskApproveList;
+    }
+
+    public void setTaskApproveList(List<TaskItem> taskApproveList) {
+        this.taskApproveList = taskApproveList;
+    }
+
+    public List<TaskItem> getTaskDenyList() {
+        return taskDenyList;
+    }
+
+    public void setTaskDenyList(List<TaskItem> taskDenyList) {
+        this.taskDenyList = taskDenyList;
     }
 }

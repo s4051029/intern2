@@ -104,7 +104,6 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = this.getArguments();
         if(savedInstanceState != null) {
-
             taskBean = savedInstanceState.getParcelable("task");
             mAdapter.setTaskBean(taskBean);
             mRecyclerView.setIAdapter(mAdapter);
@@ -288,7 +287,7 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
     View.OnClickListener refreshClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            RelativeLayout view = (RelativeLayout) getView();
+            ViewGroup view = (RelativeLayout) getView();
             view.removeView(defaultDisplayview);
             progressBar.setVisibility(View.VISIBLE);
             getTaskList(pageId, ShareData.getUserProfile().getUser_id());
@@ -372,30 +371,35 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
         public void onSuccess(String result) {
             try {
                 progressBar.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
                 JSONObject response = new JSONObject(result);
                 if (response.getString("error").equals("0")) {
-
-                    getTaskList(pageId, taskUserId);
                     taskBean.removeTask(taskId);
-                    mAdapter.notifyDataSetChanged();
+                    if(taskBean.getTaskSize() == 0) {
+                        showDefaultView(getResources().getString(R.string.content_empty), ResourcesCompat.getDrawable(getResources(), R.drawable.ic_content_copy_black_48dp, null), refreshClickListener);
+                    }else {
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.startAnimation(AnimationUtil.animationSlideUp(getActivity()));
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
-
-
         }
 
         @Override
         public void onLostConnection() {
-
+            progressBar.setVisibility(View.GONE);
+            WindowsUtil.defaultAlertDialog(getString(R.string.default_dialog_header), getString(R.string.default_message_dialog), getString(R.string.default_label_dialog_button),getActivity());
         }
         @Override
         public void onUnreachHost() {
-
+            progressBar.setVisibility(View.GONE);
+            WindowsUtil.defaultAlertDialog(getString(R.string.default_dialog_header), getString(R.string.default_message_dialog), getString(R.string.default_label_dialog_button), getActivity());
         }
+
     };
 
 }

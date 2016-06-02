@@ -83,18 +83,19 @@ public class ActivityHistoryFragment extends Fragment implements View.OnClickLis
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState != null) {
             activityBean = savedInstanceState.getParcelable("activity");
-            mAdapter.setActivityBean(activityBean);
-            mRecyclerView.setIAdapter(mAdapter);
-            if(activityBean.getActivitySize() == 0){
-                showDefaultView(getResources().getString(R.string.content_empty),
-                        ResourcesCompat.getDrawable(getResources(), R.drawable.ic_content_copy_black_48dp, null), refreshClickListener);
-            } else {
-                mRecyclerView.setRefreshEnabled(true);
-                mRecyclerView.setVisibility(View.VISIBLE);
+            if(activityBean != null) {
+                mAdapter.setActivityBean(activityBean);
+                mRecyclerView.setIAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+                if(activityBean.getActivitySize() == 0){
+                    showDefaultView(getResources().getString(R.string.content_empty),
+                            ResourcesCompat.getDrawable(getResources(), R.drawable.ic_content_copy_black_48dp, null), refreshClickListener);
+                } else {
+                    mRecyclerView.setRefreshEnabled(true);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                }
             }
-
         }
-
         else {
                 progressBar.setVisibility(View.VISIBLE);
                 getActivityList(pageId);
@@ -196,6 +197,11 @@ public class ActivityHistoryFragment extends Fragment implements View.OnClickLis
             e.printStackTrace();
         } catch (IllegalStateException e) {
             e.printStackTrace();
+        } catch (Exception e){
+            if(isAdded()) {
+                showDefaultView(getResources().getString(R.string.content_empty),
+                        ResourcesCompat.getDrawable(getResources(), R.drawable.ic_content_copy_black_48dp, null), refreshClickListener);
+            }
         }
     }
     @Override

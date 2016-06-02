@@ -103,6 +103,9 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            taskUserId = bundle.getString("userId");
+        }
         if(savedInstanceState != null) {
             taskBean = savedInstanceState.getParcelable("task");
             mAdapter.setTaskBean(taskBean);
@@ -281,6 +284,11 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
             e.printStackTrace();
         } catch (IllegalStateException e) {
             e.printStackTrace();
+        } catch (Exception e){
+            if(isAdded()) {
+                showDefaultView(getResources().getString(R.string.content_empty),
+                        ResourcesCompat.getDrawable(getResources(), R.drawable.ic_content_copy_black_48dp, null), refreshClickListener);
+            }
         }
     }
 

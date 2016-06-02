@@ -78,7 +78,8 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
         if(savedInstanceState != null) {
 
             newsBean = savedInstanceState.getParcelable("news");
-            mAdapter = new NewsRecyclerViewAdapter(getActivity(), newsBean, this);
+            mAdapter = new NewsRecyclerViewAdapter(getActivity(), this);
+            mAdapter.setNewsBean(newsBean);
             mRecyclerView.setIAdapter(mAdapter);
             if(newsBean.getNewsSize() == 0){
                 showDefaultView(getResources().getString(R.string.content_empty),
@@ -89,7 +90,8 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
             }
         }
         if(newsBean != null){
-            mAdapter = new NewsRecyclerViewAdapter(getActivity(), newsBean, this);
+            mAdapter = new NewsRecyclerViewAdapter(getActivity(), this);
+            mAdapter.setNewsBean(newsBean);
             mRecyclerView.setIAdapter(mAdapter);
             if(newsBean.getNewsSize() == 0){
                 showDefaultView(getResources().getString(R.string.content_empty),
@@ -162,7 +164,8 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
                 if(!isLoadmore) {
                     if(newsBean == null) {
                         newsBean = new NewsBean(resultObject);
-                        mAdapter = new NewsRecyclerViewAdapter(getActivity(), newsBean, this);
+                        mAdapter = new NewsRecyclerViewAdapter(getActivity(), this);
+                        mAdapter.setNewsBean(newsBean);
                         mRecyclerView.setIAdapter(mAdapter);
                         AnimationSet slideupAnimation = AnimationUtil.animationSlideUp(getActivity());
                         mRecyclerView.startAnimation(slideupAnimation);
@@ -193,6 +196,11 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
             e.printStackTrace();
         } catch (IllegalStateException e) {
             e.printStackTrace();
+        } catch (Exception e){
+            if(isAdded()) {
+                showDefaultView(getResources().getString(R.string.content_empty),
+                        ResourcesCompat.getDrawable(getResources(), R.drawable.ic_content_copy_black_48dp, null), refreshClickListener);
+            }
         }
     }
     @Override

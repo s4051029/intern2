@@ -43,12 +43,11 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
     private NewsBean newsBean;
     private Context context;
     private RecyclerViewItemClickListener itemListener;
-    public NewsRecyclerViewAdapter(Context context, NewsBean newsBean, RecyclerViewItemClickListener itemListener) {
-        this.newsBean = newsBean;
+    public NewsRecyclerViewAdapter(Context context, RecyclerViewItemClickListener itemListener) {
         this.context = context;
         this.itemListener = itemListener;
     }
-    public void setDataSource(NewsBean newsBean){
+    public void setNewsBean(NewsBean newsBean){
         this.newsBean = newsBean;
     }
 

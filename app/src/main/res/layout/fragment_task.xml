@@ -56,12 +56,12 @@
            />
            <TextView android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="07/04/2559"
                      android:background="@drawable/date_textview_background"
                      android:layout_marginLeft="20dp"
                      android:padding="5dp"
                      android:id="@+id/taskDateTextview"
                      android:textColor="@android:color/white"
+                     android:freezesText="true"
            />
 
        </LinearLayout>
@@ -96,7 +96,7 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:layout_marginLeft="10dp"
             android:hint="รายละเอียด"
             android:textSize="14sp"
@@ -152,13 +152,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/galleryRecyclerView"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
     >
     </android.support.v7.widget.RecyclerView>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="บันทึก"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/saveButton"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/round_corner_btn"

@@ -12,10 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationSet;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,7 +59,6 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
     private RefreshView header ;
     private RefreshView footer;
     private ProgressBar progressBar;
-    private CoordinatorLayout coordinatorLayout;
     private  DefaultDisplayView defaultDisplayview;
     private View rootview;
     private String defaultPageId = "1";
@@ -126,7 +130,6 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
         mRecyclerView = (IRecyclerView) rootview.findViewById(R.id.newsRecyclerview);
         toolbartitle = (TextView) rootview.findViewById(R.id.toolbar_title);
         progressBar = (ProgressBar) rootview.findViewById(R.id.progressBar);
-        coordinatorLayout = (CoordinatorLayout) rootview.findViewById(R.id.coordinatorLayout);
     }
 
     private void initWidget() {
@@ -216,15 +219,18 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
         mRecyclerView.setRefreshing(false);
         View f = mRecyclerView.getLoadMoreFooterView();
         f.setVisibility(View.GONE);
-        coordinatorLayout.setVisibility(View.VISIBLE);
-        Snackbar.make(coordinatorLayout, text, Snackbar.LENGTH_LONG)
+
+
+
+
+        Snackbar.make(getView().findViewById(R.id.coordinatorLayout), text, Snackbar.LENGTH_LONG)
                 .show();
     }
 
     View.OnClickListener refreshClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            RelativeLayout view = (RelativeLayout) getView();
+            CoordinatorLayout view = (CoordinatorLayout) getView();
             view.removeView(defaultDisplayview);
             getNewsList(defaultPageId);
         }
@@ -241,7 +247,7 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
 
     private void showDefaultView(String text, Drawable drawable, View.OnClickListener onClickListener) {
         progressBar.setVisibility(View.GONE);
-        ViewGroup rootview = (RelativeLayout) this.getView();
+        ViewGroup rootview = (ViewGroup) this.getView();
         defaultDisplayview.setImage(drawable);
         defaultDisplayview.setImageOnclicklistener(onClickListener);
         defaultDisplayview.setText(text);
@@ -269,5 +275,19 @@ public class NewsFragment extends Fragment implements Connection.OnConnectionCal
     @Override
     public void onRefresh() {
         serviceDao.requestNews(defaultPageId, this, ShareData.getUserProfile());
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        // Inflate Menu from xml resource
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.menu_image, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Toast.makeText(getActivity(), "Test"+ item.getTitle(), Toast.LENGTH_SHORT).show();
+        return super.onContextItemSelected(item);
     }
 }

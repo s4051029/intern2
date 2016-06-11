@@ -1,5 +1,6 @@
 package com.mirrorchannelth.internship.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,27 +10,25 @@ import android.graphics.Point;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.mirrorchannelth.internship.R;
 import com.mirrorchannelth.internship.model.Image;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
 
-/**
- * Created by boss on 5/22/16.
- */
 public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecyclerViewAdapter.ViewHolder>{
     private List<Image> imageList;
     private Context context;
@@ -53,7 +52,7 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Image image = imageList.get(position);
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Point size = new Point();
@@ -87,6 +86,28 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
 
             }
         });
+        holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(context, v);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.menu_image, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if(item.getItemId() == R.id.delete_image) {
+                            imageList.remove(position);
+                            GalleryRecyclerViewAdapter.this.notifyDataSetChanged();
+                        }
+
+                        return true;
+                    }
+                });
+                return true;
+            }
+
+        });
     }
 
 
@@ -98,12 +119,13 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public ImageView videoIconImageview;
+        public ImageView binImageView;
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.image);
             videoIconImageview = (ImageView) itemView.findViewById(R.id.videoIconImageviews);
+            binImageView = (ImageView) itemView.findViewById(R.id.ic_bin);
         }
-
-
     }
+
 }

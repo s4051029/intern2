@@ -50,8 +50,11 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -137,15 +140,15 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
         titleactivityEditText = (EditText) rootview.findViewById(R.id.activityTitleEditText);
 
         dateActivityTextview = (TextView) rootview.findViewById(R.id.activityDateTextview);
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        String currentDate = dateFormat.format(date);
+        final Calendar c = GregorianCalendar.getInstance(new Locale("th_TH"));
+
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        String currentDate = String.format("%d/%d/%d", day, month, year+543);
         dateActivityTextview.setText(currentDate);
         dateActivityTextview.setOnClickListener(this);
-
-
-
-
 
         detailActivityEditText = (EditText) rootview.findViewById(R.id.activityDetailEditText);
         saveButton = (Button) rootview.findViewById(R.id.saveButton);
@@ -154,7 +157,6 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
         cameraLayout.setOnClickListener(this);
         imageLayout.setOnClickListener(this);
         videoLayout.setOnClickListener(this);
-
 
         rightMenuImageview.setImageResource(R.drawable.ic_history_white_24dp);
         toolbarTitleTextview.setText(R.string.add_activity_toolbar_title);
@@ -166,8 +168,6 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList("image", (ArrayList<? extends Parcelable>) imageList);
         super.onSaveInstanceState(outState);
-
-
     }
 
     @Override
@@ -191,7 +191,6 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
             case R.id.activityDateTextview:
                 openDateDialog();
                 break;
-
         }
     }
 
@@ -212,7 +211,6 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
         String newFormatDate = "yyyy-mm-dd";
         date = DateUtil.changeFormatDate(oldateFormat, newFormatDate, date);
         serviceDao.addActivity(ShareData.getUserProfile(), title, date, detail, imageList, this);
-
 
     }
 
@@ -236,7 +234,6 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
 
         }
     }
-
     private void openVideoCam() {
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -250,7 +247,6 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
             startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
         }
     }
-
 
     private void openGallery() {
         Intent intent = new Intent();
@@ -268,7 +264,6 @@ public class AddActivityFragment extends Fragment implements View.OnClickListene
                     REQUEST_STORAGE_PERMISSION_CAMERA);
             return ;
         }
-
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             File imageFile = null;

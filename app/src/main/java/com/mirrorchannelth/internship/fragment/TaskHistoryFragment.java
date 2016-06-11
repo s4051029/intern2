@@ -71,6 +71,7 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
     private ImageView searchImageview;
     private static final String approve = "1";
     private static final String denied = "2";
+    private SpaceItemDecoration itemDecorator;
 
 
 
@@ -153,7 +154,8 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(getActivity()));
+        //itemDecorator = new SpaceItemDecoration(getActivity());
+       // mRecyclerView.addItemDecoration(itemDecorator);
         header = new RefreshView(getActivity());
         footer = new RefreshView(getActivity());
         mRecyclerView.setRefreshHeaderView(header);
@@ -241,6 +243,7 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onRefresh() {
+        //mRecyclerView.removeItemDecoration(itemDecorator);
         getTaskList(pageId, taskUserId);
     }
 
@@ -274,8 +277,8 @@ public class TaskHistoryFragment extends Fragment implements View.OnClickListene
                 mRecyclerView.setRefreshing(false);
                 mRecyclerView.getLoadMoreFooterView().setVisibility(View.GONE);
                 mAdapter.notifyDataSetChanged();
-                String toolsbarTitle = String.format(toolbartitle.getText().toString(), taskBean.getTotalHours());
-                toolbartitle.setText(toolsbarTitle);
+                toolbartitle.setText(toolbartitle.getText().toString().replace("?", String.valueOf(taskBean.getTotalHours())));
+
             } else{
                 showDefaultView(getResources().getString(R.string.default_message_dialog), ResourcesCompat.getDrawable(getResources(),
                         R.drawable.ic_refresh_black_48dp, null) , refreshClickListener);

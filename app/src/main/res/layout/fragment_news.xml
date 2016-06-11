@@ -1,38 +1,43 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/news_background"
-
-              app:layout_behavior="@string/appbar_scrolling_view_behavior"
+              android:orientation="vertical"
               tools:context="com.mirrorchannelth.internship.fragment.NewsFragment">
 
     <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
     <!-- -->
 
-    <include layout="@layout/layout_collapse_toolbar"></include>
-    <com.aspsine.irecyclerview.IRecyclerView
+    <include layout="@layout/home_toolbar"></include>
+   <RelativeLayout android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+   >
+
+
+       <com.aspsine.irecyclerview.IRecyclerView
         android:id="@+id/newsRecyclerview"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
     />
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/coordinatorLayout"
-        android:visibility="gone"
-    >
+       <android.support.design.widget.CoordinatorLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/coordinatorLayout"
+       />
 
-    </android.support.design.widget.CoordinatorLayout>
-    <ProgressBar
+
+       <ProgressBar
         android:layout_width="wrap_content"
         android:id="@+id/progressBar"
         android:visibility="gone"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/progressbar"
         android:layout_height="wrap_content"/>
 
-</android.support.design.widget.CoordinatorLayout>
+   </RelativeLayout>
+
+</LinearLayout>

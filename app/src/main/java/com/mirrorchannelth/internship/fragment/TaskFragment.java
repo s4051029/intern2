@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +51,11 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,13 +106,13 @@ public class TaskFragment extends Fragment implements View.OnClickListener, Conn
 
             }
         }
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList("image", (ArrayList<? extends Parcelable>) imageList);
         super.onSaveInstanceState(outState);
-
     }
 
     @Override
@@ -139,9 +143,16 @@ public class TaskFragment extends Fragment implements View.OnClickListener, Conn
         imageList = new ArrayList<Image>();
         adapter = new GalleryRecyclerViewAdapter(getActivity(), imageList);
         galleryRecyclerView.setAdapter(adapter);
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        String currentDate = dateFormat.format(date);
+
+        final Calendar c = GregorianCalendar.getInstance(new Locale("th_TH"));
+
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        String currentDate = String.format("%d/%d/%d", day, month, year+543);
+
+
         taskDateTextview.setText(currentDate);
 
         rightMenuButton.setVisibility(View.VISIBLE);
@@ -352,4 +363,6 @@ public class TaskFragment extends Fragment implements View.OnClickListener, Conn
         WindowsUtil.defaultAlertDialog(getString(R.string.default_dialog_header), getString(R.string.default_message_dialog), getString(R.string.default_label_dialog_button), getActivity());
 
     }
+
+
 }

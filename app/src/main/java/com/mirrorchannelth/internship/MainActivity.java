@@ -1,6 +1,7 @@
 package com.mirrorchannelth.internship;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mirrorchannelth.internship.fragment.AddActivityFragment;
@@ -16,10 +17,15 @@ import com.roughike.bottombar.BottomBarFragment;
 
 public class MainActivity extends AppCompatActivity {
     private BottomBar bottomBar = null;
+    private int currentTabIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState != null) {
+            currentTabIndex = savedInstanceState.getInt("currentPosition");
+
+        }
         bottomBar = BottomBar.attach(this, savedInstanceState);
         bottomBar.noTopOffset();
         initWidget();
@@ -55,10 +61,23 @@ public class MainActivity extends AppCompatActivity {
             bottomBar.mapColorForTab(2, "#F44336");
             bottomBar.mapColorForTab(3, "#F44336");
             bottomBar.mapColorForTab(4, "#F44336");
-
         }
+        bottomBar.selectTabAtPosition(currentTabIndex, true);
 
     }
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        currentTabIndex =  bottomBar.getCurrentTabPosition();
+        outState.putInt("currentPosition",currentTabIndex);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        currentTabIndex =  bottomBar.getCurrentTabPosition();
+        outState.putInt("currentPosition",currentTabIndex);
+        super.onSaveInstanceState(outState);
+    }
 }

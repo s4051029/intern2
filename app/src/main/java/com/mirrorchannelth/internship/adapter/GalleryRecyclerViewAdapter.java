@@ -80,7 +80,6 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
                     intent.setDataAndType(Uri.fromFile(new File(image.getUrl())), "video/*");
                 }else {
                         intent.setDataAndType(Uri.fromFile(new File(image.getUrl())), "image/*");
-
                     }
                 context.startActivity(intent);
 
